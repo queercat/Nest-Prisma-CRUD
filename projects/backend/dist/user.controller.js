@@ -12,31 +12,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HewwoController = void 0;
+exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-let HewwoController = class HewwoController {
-    getHewwo() {
-        return "Hewwo, wowld!";
+const user_service_1 = require("./user.service");
+let UserController = class UserController {
+    constructor(userService) {
+        this.userService = userService;
     }
-    getHewwoName(name) {
-        return `Hewwo, ${name}!`;
+    async getUserById(id) {
+        const user = await this.userService.getUserById(Number(id));
+        return user;
+    }
+    async createUserWithId(id) {
+        const user = await this.userService.createUserWithId(Number(id));
+        return user;
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], HewwoController.prototype, "getHewwo", null);
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUserById", null);
 __decorate([
-    (0, common_1.Get)(":name"),
-    __param(0, (0, common_1.Param)("name")),
+    (0, common_1.Get)("create/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", String)
-], HewwoController.prototype, "getHewwoName", null);
-HewwoController = __decorate([
-    (0, common_1.Controller)("hewwo")
-], HewwoController);
-exports.HewwoController = HewwoController;
-//# sourceMappingURL=hewwo.controller.js.map
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "createUserWithId", null);
+UserController = __decorate([
+    (0, common_1.Controller)("user"),
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], UserController);
+exports.UserController = UserController;
+//# sourceMappingURL=user.controller.js.map

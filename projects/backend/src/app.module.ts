@@ -1,9 +1,11 @@
 import { Module } from "@nestjs/common"
-import { HewwoController } from "./hewwo.controller"
+import { UserController } from "./user.controller"
+import { UserService } from "./user.service"
+import { PrismaService } from "./prisma.service"
 
 @Module({
   imports: [],
-  controllers: [HewwoController],
-  providers: [],
+  controllers: [UserController],
+  providers: [PrismaService, UserService],
 })
 export class AppModule {}
